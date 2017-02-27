@@ -448,7 +448,7 @@ class PhoneMetadata {
 
 	/**
 	 *
-	 * @var NumberFormat 
+	 * @var NumberFormat array
 	 */
 	private $intlNumberFormat = array();
 
@@ -738,23 +738,6 @@ class PhoneNumberDesc {
 		return $this;
 	}
 
-	private $hasPossibleNumberPattern;
-	private $possibleNumberPattern_ = "";
-
-	public function hasPossibleNumberPattern() {
-		return $this->hasPossibleNumberPattern;
-	}
-
-	public function getPossibleNumberPattern() {
-		return $this->possibleNumberPattern_;
-	}
-
-	public function setPossibleNumberPattern($value) {
-		$this->hasPossibleNumberPattern = true;
-		$this->possibleNumberPattern_ = $value;
-		return $this;
-	}
-
 	private $hasExampleNumber;
 	private $exampleNumber_ = "";
 
@@ -776,9 +759,6 @@ class PhoneNumberDesc {
 		if ($other->hasNationalNumberPattern()) {
 			$this->setNationalNumberPattern($other->getNationalNumberPattern());
 		}
-		if ($other->hasPossibleNumberPattern()) {
-			$this->setPossibleNumberPattern($other->getPossibleNumberPattern());
-		}
 		if ($other->hasExampleNumber()) {
 			$this->setExampleNumber($other->getExampleNumber());
 		}
@@ -787,14 +767,12 @@ class PhoneNumberDesc {
 
 	public function exactlySameAs(PhoneNumberDesc $other) {
 		return $this->nationalNumberPattern_ === $other->nationalNumberPattern_ &&
-				$this->possibleNumberPattern_ === $other->possibleNumberPattern_ &&
 				$this->exampleNumber_ === $other->exampleNumber_;
 	}
 
 	public function toArray() {
 		return array(
 			'NationalNumberPattern' => $this->getNationalNumberPattern(),
-			'PossibleNumberPattern' => $this->getPossibleNumberPattern(),
 			'ExampleNumber' => $this->getExampleNumber(),
 		);
 	}
@@ -802,9 +780,6 @@ class PhoneNumberDesc {
 	public function fromArray(array $input) {
 		if (isset($input['NationalNumberPattern'])) {
 			$this->setNationalNumberPattern($input['NationalNumberPattern']);
-		}
-		if (isset($input['PossibleNumberPattern'])) {
-			$this->setPossibleNumberPattern($input['PossibleNumberPattern']);
 		}
 		if (isset($input['ExampleNumber'])) {
 			$this->setExampleNumber($input['ExampleNumber']);
